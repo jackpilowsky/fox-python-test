@@ -157,3 +157,34 @@ def fib_memoized(n: int, memo: Optional[dict[int, int]] = None) -> int:
     # Calculate and cache the result
     memo[n] = fib_memoized(n - 1, memo) + fib_memoized(n - 2, memo)
     return memo[n]
+
+
+
+"""
+Task 5 - Hashing & Grouping
+Group anagrams together from a list of words.
+"""
+
+
+def group_anagrams(words: list[str]) -> list[list[str]]:
+    """
+    Group anagrams together from a list of words.
+    
+    Args:
+        words: List of words to group
+    
+    Returns:
+        List of groups, where each group contains anagrams
+    """
+    from collections import defaultdict
+    
+    # Use sorted characters as key to group anagrams
+    anagram_groups = defaultdict(list)
+    
+    for word in words:
+        # Sort characters to create a key for anagrams
+        key = "".join(sorted(word.lower()))
+        anagram_groups[key].append(word)
+    
+    # Return list of groups
+    return list(anagram_groups.values())
