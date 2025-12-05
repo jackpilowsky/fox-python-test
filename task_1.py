@@ -3,11 +3,8 @@ Task 1 - String & Collections
 Find the most common word in a text, excluding stopwords.
 """
 
-from collections import Counter
-from typing import Optional
 
-
-def most_common_word(text: str, stopwords: Optional[set[str]] = None) -> Optional[str]:
+def most_common_word(text, stopwords=None):
     """
     Find the most common word in the given text, excluding stopwords.
     
@@ -37,8 +34,17 @@ def most_common_word(text: str, stopwords: Optional[set[str]] = None) -> Optiona
     if not words:
         return None
     
-    # Count word frequencies and return the most common
-    word_counts = Counter(words)
-    most_common = word_counts.most_common(1)
+    # Count word frequencies manually
+    word_counts = {}
+    for word in words:
+        word_counts[word] = word_counts.get(word, 0) + 1
     
-    return most_common[0][0] if most_common else None
+    # Find the most common word
+    max_count = 0
+    most_common = None
+    for word, count in word_counts.items():
+        if count > max_count:
+            max_count = count
+            most_common = word
+    
+    return most_common
