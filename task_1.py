@@ -21,30 +21,19 @@ def most_common_word(text, stopwords=None):
     # Normalize stopwords to lowercase for case-insensitive comparison
     stopwords_lower = {word.lower() for word in stopwords}
     
-    # Extract words: split by whitespace and strip punctuation
-    words = []
+    # Count word frequencies and track most common in a single pass
+    word_counts = {}
+    max_count = 0
+    most_common = None
+    
     for word in text.split():
         # Remove common punctuation from start and end
         cleaned = word.strip('.,!?;:"()[]{}').lower()
         # Only include non-empty words that aren't stopwords
         if cleaned and cleaned not in stopwords_lower:
-            words.append(cleaned)
-    
-    # Return None if no valid words found
-    if not words:
-        return None
-    
-    # Count word frequencies manually
-    word_counts = {}
-    for word in words:
-        word_counts[word] = word_counts.get(word, 0) + 1
-    
-    # Find the most common word
-    max_count = 0
-    most_common = None
-    for word, count in word_counts.items():
-        if count > max_count:
-            max_count = count
-            most_common = word
+            word_counts[cleaned] = word_counts.get(cleaned, 0) + 1
+            if word_counts[cleaned] > max_count:
+                max_count = word_counts[cleaned]
+                most_common = cleaned
     
     return most_common
