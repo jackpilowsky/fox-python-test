@@ -2,7 +2,7 @@
 Tests for Task 3 - OOP Design & API
 """
 
-from logger import Logger, LogLevel
+from task_3 import Logger, LogLevel
 
 
 def test_logger_basic():
