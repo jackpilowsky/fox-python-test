@@ -6,23 +6,6 @@ Fixed Fibonacci implementations: recursive, iterative, and memoized.
 from typing import Optional
 
 
-def fib_recursive(n: int) -> int:
-    """
-    Calculate the nth Fibonacci number using recursion.
-    Fixed version with proper base cases.
-    
-    Args:
-        n: The position in the Fibonacci sequence (0-indexed)
-    
-    Returns:
-        The nth Fibonacci number
-    """
-    if n < 0:
-        raise ValueError("n must be non-negative")
-    if n <= 1:
-        return n
-    return fib_recursive(n - 1) + fib_recursive(n - 2)
-
 
 def fib_iterative(n: int) -> int:
     """

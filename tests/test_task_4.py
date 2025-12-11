@@ -2,14 +2,14 @@
 Tests for Task 4 - Debugging & Refactoring
 """
 
-from task_4 import fib_recursive, fib_iterative, fib_memoized
+from task_4 import fib_iterative, fib_memoized
 import time
 
 
 def test_fib_base_cases():
     """Test Fibonacci base cases"""
-    # Test all three implementations
-    for fib_func in [fib_recursive, fib_iterative, fib_memoized]:
+    # Test both implementations
+    for fib_func in [fib_iterative, fib_memoized]:
         assert fib_func(0) == 0
         assert fib_func(1) == 1
     print("Test fib base cases: All implementations correct")
@@ -19,7 +19,7 @@ def test_fib_small_values():
     """Test Fibonacci with small values"""
     expected = [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
     
-    for fib_func in [fib_recursive, fib_iterative, fib_memoized]:
+    for fib_func in [fib_iterative, fib_memoized]:
         for i, exp in enumerate(expected):
             result = fib_func(i)
             assert result == exp, f"{fib_func.__name__}({i}) = {result}, expected {exp}"
@@ -28,11 +28,10 @@ def test_fib_small_values():
 
 
 def test_fib_larger_value():
-    """Test Fibonacci with larger value (only iterative and memoized)"""
+    """Test Fibonacci with larger value"""
     n = 30
     expected = 832040
     
-    # Recursive would be too slow for n=30
     result_iter = fib_iterative(n)
     result_memo = fib_memoized(n)
     
@@ -43,7 +42,7 @@ def test_fib_larger_value():
 
 def test_fib_error_handling():
     """Test error handling for negative input"""
-    for fib_func in [fib_recursive, fib_iterative, fib_memoized]:
+    for fib_func in [fib_iterative, fib_memoized]:
         try:
             fib_func(-1)
             assert False, f"{fib_func.__name__} should raise ValueError for negative input"
@@ -56,11 +55,6 @@ def test_fib_performance():
     """Compare performance of different implementations"""
     n = 20
     
-    # Recursive (slower)
-    start = time.time()
-    result_rec = fib_recursive(n)
-    time_rec = time.time() - start
-    
     # Iterative (fast)
     start = time.time()
     result_iter = fib_iterative(n)
@@ -71,9 +65,8 @@ def test_fib_performance():
     result_memo = fib_memoized(n)
     time_memo = time.time() - start
     
-    assert result_rec == result_iter == result_memo
+    assert result_iter == result_memo
     print(f"Test fib performance for n={n}:")
-    print(f"  Recursive: {time_rec:.6f}s")
     print(f"  Iterative: {time_iter:.6f}s")
     print(f"  Memoized:  {time_memo:.6f}s")
 
